@@ -1,0 +1,23 @@
+﻿.dot-progress {
+    background-color: #323232;
+    height: 2rem;
+    width: 2rem;
+    display: inline-block;
+}
+
+.dot-progress-active {
+    background-color: orange;
+    height: 2rem;
+    width: 2rem;
+    display: inline-block;
+}
+
+.dot-bar {
+    display: flex;
+}
+
+@media only (width: 690px) {
+    .dot-bar {
+        display: block;
+    }
+}

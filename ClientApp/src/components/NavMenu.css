@@ -1,18 +1,25 @@
-﻿a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿.navbar-nav {
+  gap:1rem;
+  margin-left: 25px;
 }
 
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.navigation-button {
+  padding-left: 20px;
+  color: white;
+  transition: 0.1s;
 }
 
-.box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+.navigation-button:focus {
+  outline-color: transparent;
+  outline-style: none;
+  border: 0 transparent;
+  color: azure;
+}
+
+.navigation-button li:active{
+  background-color: red;
+}
+
+.navigation-button:hover {
+  color: orange;
 }

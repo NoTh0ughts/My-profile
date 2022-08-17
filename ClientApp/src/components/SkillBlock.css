@@ -1,0 +1,55 @@
+﻿.glass{
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.skill-block-icon {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+    flex-shrink: 0;
+    user-select: none;
+    border-radius: 50%;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 25px;
+}
+
+.skill-block-icon-root {
+    background-image: none;
+    align-items: center;
+    background-origin: padding-box;
+    background-size: auto;
+    display: flex;
+    flex-shrink: 0;
+    height: 100px;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.skill-block {
+    display: block;
+    padding: 24px;
+    text-align: center;
+    overflow: hidden;
+    width: 33%;
+    max-width: 250px;
+}
+@media only screen and (max-width: 1000px) {
+    .skill-block {
+        width: 45%;
+        -ms-flex-pack: distribute;
+        justify-content: space-around
+    }
+
+    .skill-block {
+        min-width: 20%;
+        max-width: 50%;
+    }
+}

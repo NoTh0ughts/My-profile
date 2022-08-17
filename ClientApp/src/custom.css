@@ -1,14 +1,23 @@
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
+.grayscale {
+  filter: grayscale(100%);
+  transition: 0.1s;
 }
 
-code {
-  color: #E01A76;
+.grayscale:hover {
+  filter: grayscale(0);
 }
 
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.bg-darkgrey {
+    background-color: #333333;
 }
+
+.nav-root {
+  display: flex;
+}
+
+@media only screen and (max-width: 1000px) {
+    .nav-root {
+      display: block;
+    }
+}
+
