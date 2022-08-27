@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "install": "^0.13.0",
+    "react-chrono": "^1.17.2",
+    "react-icons": "^4.4.0",
+    "react-native-vector-icons": "^9.2.0",
+    "react-vertical-timeline-component": "^3.5.2"
+  }
+}
