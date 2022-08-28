@@ -1,11 +1,10 @@
 using System.Net.Http.Headers;
 using System.Text.Json.Serialization;
 using Data;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using MyProfile;
 using MyProfile.Services.Client.Github;
 using MyProfile.Services.Timed_Worker;
-using ConfigurationManager = System.Configuration.ConfigurationManager;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +17,22 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Добавление сервисов в контейнер DI
 {
+    builder.Services.AddSwaggerGen(c =>
+    {
+        c.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "<My profile>",
+            Version = "v1",
+            Description = "My profile",
+            Contact = new OpenApiContact
+            {
+                Name = "Repo:",
+                Email = "",
+                Url = new Uri("https://github.com/NoTh0ughts/My-profile")
+            }
+        });
+    });
+    
     builder.Services.AddLogging();
     
     builder.Services.AddControllersWithViews()
@@ -60,7 +75,12 @@ var app = builder.Build();
         // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
         app.UseHsts();
     }
-
+    else
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyProfile v1"));
+    }
+    
     app.UseHttpsRedirection();
     app.UseStaticFiles();
     app.UseRouting();
@@ -70,6 +90,11 @@ var app = builder.Build();
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
 
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+    
     app.MapFallbackToFile("index.html");;
 
     app.Run();

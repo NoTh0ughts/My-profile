@@ -18,6 +18,7 @@
 * ASP.NET
 * BD IDK
 * 1234TEST
+* NewTech
 
 </div>
 

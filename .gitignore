@@ -11,6 +11,9 @@
 *.userprefs
 
 # Build results
+Data/bin/
+Data/obj/
+.idea/
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
