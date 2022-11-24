@@ -45,31 +45,35 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
             _logger.LogInformation("Scoped Project Updater Service is working. Count: {Count}", _executionCount);
             
             
-            try
-            {
-                var projects = await FetchProjects();
+           
+            var projects = await FetchProjects();
 
-                foreach (var project in projects)
+            foreach (var project in projects)
+            {
+                try
                 {
                     var isExists = _dbContext.Projects.Any(x => x.ID == project.ID);
                     if (isExists)
                     {
-                        // TODO : Проверить эту штуку
-                        // Работает не так ((( 
-                        // Вставляет новые записи почему-то в промежуточную таблицу 
-                        
-                        var existingProject =
-                            await _dbContext.Projects
-                                .FirstOrDefaultAsync(x => x.ID == project.ID, cancellationToken);
+                        var existing = await _dbContext.Projects
+                            .Include(x => x.Technologies)
+                            .AsNoTracking()
+                            .FirstOrDefaultAsync(x => x.ID == project.ID, cancellationToken: cancellationToken);
 
-                        // Вот это фиксит, но мне не нравится
-                        existingProject.Technologies.Clear();
-                        
-                        existingProject.UpdatedAt = project.UpdatedAt;
-                        existingProject.MainTitle = project.MainTitle;
-                        existingProject.SubTitle = project.SubTitle;
-                        existingProject.Technologies = project.Technologies;
-                        existingProject.RepositoryName = project.RepositoryName;
+                        foreach (var technology in existing.Technologies)
+                        {
+                            if (!project.Technologies.Select(x => x.Name).Contains(technology.Name))
+                                existing.Technologies.Remove(technology);
+                        }
+
+                        foreach (var newTech in project.Technologies)
+                        {
+                            if (!existing.Technologies.Any(x => x.Name == newTech.Name))
+                            {
+                                _dbContext.Technologies.Attach(newTech);
+                                existing.Technologies.Add(newTech);
+                            }
+                        }
                     }
                     else
                     {
@@ -77,11 +81,12 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
                     }
                     
                     await _dbContext.SaveChangesAsync(cancellationToken);
+                    
                 }
-            }
-            catch (Exception e)
-            {
-                _logger.LogError("Unable to update user repos, error: {}", e.Message);
+                catch (Exception e)
+                {
+                    _logger.LogError("Unable to update user repos, error: {}", e.Message);
+                }
             }
 
             var peridodicity = (int)_config.CurrentValue.UpdatePeriodicity.TotalMilliseconds;
@@ -149,7 +154,7 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
         HtmlDocument html = new HtmlDocument();
         html.LoadHtml(htmlString);
 
-        var repoInfo = new RepositoryInfoResponse()
+        var repoInfo = new RepositoryInfoResponse
         {
             MainTitle = html.GetElementSingleValue("MainTitle"),
             SubTitle = html.GetElementSingleValue("SubTitle"),
