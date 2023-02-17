@@ -16,6 +16,7 @@ public interface IScopedProjectUpdaterService
 public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
 {
     private int _executionCount = 0;
+    
     private readonly ILogger<ScopedProjectsUpdaterService> _logger;
     private readonly IOptionsMonitor<UserConfiguration> _config;
     
@@ -37,56 +38,36 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
         _userClient = userClient;
     }
 
+    /// <summary> The DoWork function is the method that will be called when the service starts.
+    /// It does not take any parameters and returns a Task.</summary>
+    ///
+    /// <param name="cancellationToken"> The token to monitor for cancellation requests.</param>
+    ///
+    /// <returns> A &lt;see cref=&quot;task{tresult}&quot;/&gt; that represents the asynchronous operation.</returns>
     public async Task DoWork(CancellationToken cancellationToken)
     {
         while (cancellationToken.IsCancellationRequested == false)
         {
             _executionCount++;
             _logger.LogInformation("Scoped Project Updater Service is working. Count: {Count}", _executionCount);
-            
-            
-           
+
+            // Загружаем инфу о проектах
             var projects = await FetchProjects();
-
-            foreach (var project in projects)
+            
+            try
             {
-                try
+                foreach (var project in projects)
                 {
-                    var isExists = _dbContext.Projects.Any(x => x.ID == project.ID);
-                    if (isExists)
-                    {
-                        var existing = await _dbContext.Projects
-                            .Include(x => x.Technologies)
-                            .AsNoTracking()
-                            .FirstOrDefaultAsync(x => x.ID == project.ID, cancellationToken: cancellationToken);
-
-                        foreach (var technology in existing.Technologies)
-                        {
-                            if (!project.Technologies.Select(x => x.Name).Contains(technology.Name))
-                                existing.Technologies.Remove(technology);
-                        }
-
-                        foreach (var newTech in project.Technologies)
-                        {
-                            if (!existing.Technologies.Any(x => x.Name == newTech.Name))
-                            {
-                                _dbContext.Technologies.Attach(newTech);
-                                existing.Technologies.Add(newTech);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        await _dbContext.AddAsync(project, cancellationToken);
-                    }
+                    _dbContext.Entry(project).State = EntityState.Modified;
                     
                     await _dbContext.SaveChangesAsync(cancellationToken);
                     
+                    _dbContext.Entry(project).State = EntityState.Detached;
                 }
-                catch (Exception e)
-                {
-                    _logger.LogError("Unable to update user repos, error: {}", e.Message);
-                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Unable to update user repos, error: {}", e.Message);
             }
 
             var peridodicity = (int)_config.CurrentValue.UpdatePeriodicity.TotalMilliseconds;
@@ -94,6 +75,10 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
         }
     }
 
+    /// <summary> The FetchProjects function fetches the projects from the GitHub API and saves them to a database.</summary>
+    ///
+    ///
+    /// <returns> A list of projects.</returns>
     private async Task<IEnumerable<Project>> FetchProjects()
     {
         // Получаем список репозиториев пользователя
@@ -102,47 +87,48 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
         var projectsList = new List<Project>(userRepos.Count);
         
         // Тут мы собираем данные в одну запись проекта и добавляем ее, если нормально все будет
-        for (var i = 0; i < userRepos.Count; i++)
-        { 
+        foreach (var repo in userRepos)
+        {
             try
             {
                 // Достаем инфу о репозитории и парсим ее
-                var stringRepoInfo = await _resourceClient.GetRepositoryInfo(userRepos[i].Name);
+                var stringRepoInfo = await _resourceClient.GetRepositoryInfo(repo.Name);
                 var repoInfo = ParseFromHtml(stringRepoInfo);
 
                 // Находим технологии которые уже есть
-                var techsToAdd = _dbContext.Technologies
+                var prTechs = _dbContext.Technologies
                     .Where(t => repoInfo.Technologies.Contains(t.Name))
-                    .AsNoTracking()
+                    .AsNoTrackingWithIdentityResolution()
                     .ToList();
     
                 // И которых нет
-                var techsNotExisting = repoInfo.Technologies
-                    .Where(x =>
-                    {
-                        return techsToAdd.Select(tn => tn.Name).Contains(x) == false;
-                    }).Select(x => new Technology {Name = x});
-                        
-                // Объединяем их (позже сами добавятся)
-                techsToAdd.AddRange(techsNotExisting);
-
+                foreach (var technology in repoInfo.Technologies
+                             .Where(x => prTechs.Select(tn => tn.Name).Contains(x) == false)
+                             .Select(x => new Technology {Name = x}))
+                {
+                    prTechs.Add(technology);
+                    _dbContext.Entry(technology).State = EntityState.Added;
+                }
+                
+                await _dbContext.SaveChangesAsync();
+                
                 var newProject = new Project
                 {
-                    ID             = userRepos[i].Id,
-                    CreatedAt      = userRepos[i].CreatedAt,
-                    UpdatedAt      = userRepos[i].UpdatedAt,
-                    RepositoryName = userRepos[i].Name,
+                    ID             = repo.Id,
+                    CreatedAt      = repo.CreatedAt,
+                    UpdatedAt      = repo.UpdatedAt,
+                    RepositoryName = repo.Name,
                     MainTitle      = repoInfo.MainTitle,
                     SubTitle       = repoInfo.SubTitle,
-                    Technologies   = new List<Technology>(techsToAdd),
+                    Technologies   = prTechs,
                 };
-            
+                
                 projectsList.Add(newProject);
             }
             catch (Exception e)
             {
-                _logger.LogError("Unable to update user repos, error: {Error}, with repo: {RepoName}", 
-                    e.Message, userRepos[i].Name);
+                _logger.LogDebug("Unable to update user repos, error: {Error}, with repo: {RepoName}", 
+                    e.Message, repo.Name);
             }
         }
 

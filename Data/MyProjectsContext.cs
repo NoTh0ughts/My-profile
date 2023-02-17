@@ -15,16 +15,7 @@ public class MyProjectsContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (!optionsBuilder.IsConfigured)
-        {
-            //var conString = ConfigurationManager.ConnectionStrings["MyProjectsContext"].ConnectionString;
-            
-            //uncomment on migration
-            var conString = "user=root;Database=profile;Server=localhost;Port=3306;Password=Stepup007;";
-            
-            optionsBuilder.UseMySql(conString, ServerVersion.AutoDetect(conString), 
-                x => x.MigrationsAssembly("Migrations"));
-        }
+        
     }
 
 

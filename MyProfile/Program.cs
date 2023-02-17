@@ -1,8 +1,11 @@
 using System.Net.Http.Headers;
 using System.Text.Json.Serialization;
 using Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MyProfile;
+using MyProfile.Constants;
+using MyProfile.Services;
 using MyProfile.Services.Client.Github;
 using MyProfile.Services.Timed_Worker;
 
@@ -10,7 +13,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Добавление конф файлов
 {
-    builder.Configuration.AddXmlFile("app.config", false, true);
     builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.EnvironmentName}.json", false, true);
 }
 
@@ -32,27 +34,45 @@ var builder = WebApplication.CreateBuilder(args);
             }
         });
     });
+    /*builder.Services.AddCors();*/
     
     builder.Services.AddLogging();
     
     builder.Services.AddControllersWithViews()
         .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-    builder.Services.AddDbContext<MyProjectsContext>();
+    builder.Services.AddDbContext<MyProjectsContext>(optionsBuilder =>
+    {
+        try
+        {
+            var root = Directory.GetCurrentDirectory();
+            var dotenv = Path.Combine(root, ".env");
+            EnvConfiguration.Load(dotenv);
+        
+            var connectionString = EnvConfiguration.MySqlUrl;
+            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), 
+                x => x.MigrationsAssembly("Migrations"));
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+        }
+    });
 
-    builder.Services.AddSingleton<IGithubUserClient, GithubUserClient>();
     
     var productInfoHeaderValue = new ProductInfoHeaderValue("NoThoughtsProfile", "1.0");
+    
+    builder.Services.AddSingleton<IGithubUserClient, GithubUserClient>();
     builder.Services.AddHttpClient<IGithubUserClient, GithubUserClient>(client =>
     {
-        client.BaseAddress = new Uri("https://api.github.com/users/");
+        client.BaseAddress = new Uri(AppConstants.Client.GithubUserClient);
         client.DefaultRequestHeaders.UserAgent.Add(productInfoHeaderValue);
     });
 
     builder.Services.AddSingleton<IGithubResourceClient, GithubResourceClient>();
     builder.Services.AddHttpClient<IGithubResourceClient, GithubResourceClient>(client =>
     {
-        client.BaseAddress = new Uri("https://raw.githubusercontent.com/");
+        client.BaseAddress = new Uri(AppConstants.Client.GithubResourceClient);
         client.DefaultRequestHeaders.UserAgent.Add(productInfoHeaderValue);
     });
 
@@ -70,30 +90,24 @@ var builder = WebApplication.CreateBuilder(args);
 
 var app = builder.Build();
 {
-    if (!app.Environment.IsDevelopment())
-    {
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
-    }
-    else
-    {
-        app.UseSwagger();
-        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyProfile v1"));
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyProfile v1"));
     
-    app.UseHttpsRedirection();
+    /*app.UseCors(policyBuilder =>
+    {
+        policyBuilder.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });*/
+    
     app.UseStaticFiles();
     app.UseRouting();
-
-
+    
     app.MapControllerRoute(
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
 
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-    });
+    app.UseEndpoints(endpoints => endpoints.MapControllers());
     
     app.MapFallbackToFile("index.html");;
 

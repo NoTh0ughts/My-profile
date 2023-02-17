@@ -6,9 +6,8 @@ public class AppConstants
     {
         public const string GithubUsername = "NoTh0ughts";
         
-        public const string GetRepositoriesRelativePath = "";
-        public const string RawGithubHost = "";
-        public const string GithubHost = "";
+        public const string GithubUserClient = "https://api.github.com/users/";
+        public const string GithubResourceClient = "https://raw.githubusercontent.com/";
     }
     
     public class ExitCode

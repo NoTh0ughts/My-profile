@@ -2,7 +2,7 @@
 
 public class TimedProjectsUpdaterService : BackgroundService
 {
-    public IServiceProvider Services { get; }
+    private IServiceProvider Services { get; }
     
     private readonly ILogger<TimedProjectsUpdaterService> _logger;
 
@@ -23,12 +23,10 @@ public class TimedProjectsUpdaterService : BackgroundService
     {
         _logger.LogInformation("Timed Projects Updater Service is running");
 
-        using (var scope = Services.CreateScope())
-        {
-            var scopedService = scope.ServiceProvider.GetRequiredService<IScopedProjectUpdaterService>();
-
-            await scopedService.DoWork(stoppingToken);
-        }
+        using var scope = Services.CreateScope();
+        
+        var scopedService = scope.ServiceProvider.GetRequiredService<IScopedProjectUpdaterService>();
+        await scopedService.DoWork(stoppingToken);
     }
 
     public override async Task StopAsync(CancellationToken cancellationToken)

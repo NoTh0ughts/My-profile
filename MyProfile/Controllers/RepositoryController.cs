@@ -16,10 +16,9 @@ public class RepositoryController : Controller
         _logger = logger;
         _context = context;
     }
-
-
-    [HttpGet("idk")]
-    public async Task<IActionResult> GetAllProjects(CancellationToken token)
+    
+    [HttpGet]
+    public async Task<IActionResult> Get(CancellationToken token)
     {
         try
         {

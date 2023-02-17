@@ -16,7 +16,7 @@ public class RepositoryController_Tests
         optionsBuilder.UseInMemoryDatabase("temp_projects");
         
         var controller = new RepositoryController(default, new MyProjectsContext(optionsBuilder.Options));
-        var result = await controller.GetAllProjects(default);
+        var result = await controller.Get(default);
         
         Assert.NotNull(result);
     }
@@ -49,7 +49,7 @@ public class RepositoryController_Tests
         Assert.NotNull(controller);
         
         // Получаем данные с контроллера
-        var actionResult = await controller.GetAllProjects(default);
+        var actionResult = await controller.Get(default);
         
         // Если запрос не успешный, то тест провален
         Assert.NotNull(actionResult);

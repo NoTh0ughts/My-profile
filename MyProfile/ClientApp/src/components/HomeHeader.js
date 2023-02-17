@@ -12,7 +12,7 @@ export class HomeHeader extends Component {
                 </a>
 
                 <a className="grayscale" href="https://t.me/NoThoughts_exe">
-                    <img src="https://img.shields.io/badge/Telegram-black?style=for-the-badge&logo=telegram&logoColor=black"
+                    <img src="https://img.shields.io/badge/Telegram-black?style=for-the-badge&logo=telegram&logoColor=blue"
                          alt="Telegram"/>
                 </a>
 

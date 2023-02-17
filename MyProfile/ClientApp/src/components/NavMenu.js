@@ -21,8 +21,7 @@ export class NavMenu extends Component {
         <Navbar color="faded" className="p-lg-5 d-inline-block text-nowrap">
           <Nav navbar className="flex-column text-uppercase fs-1">
               <NavItem>
-                <NavLink tag={Link} active className="navigation-button" 
-                         onClick={(selectedKey) => console.log(`selected ${selectedKey}`)} to="/">Профиль</NavLink>
+                <NavLink tag={Link} className="navigation-button" to="/">Профиль</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} className="navigation-button" to="/projects">Проекты и разработки</NavLink>
