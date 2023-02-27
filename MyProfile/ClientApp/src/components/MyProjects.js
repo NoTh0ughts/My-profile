@@ -20,13 +20,15 @@ export class MyProjects extends Component {
     
     async refresh() {
         const response = await fetch('repository');
+        const datat = await response.text();
+        console.log (datat)
         const data = await response.json();
         this.setState({ repos: data, loading: false });
     }
 
     static renderProjectsList(repos){
         repos = repos.sort((a, b) => b['createdAt'] < a['createdAt'])
-        
+        console.log (repos)
         return ( <div className="d-flex">
             <VerticalTimeline lineColor="orange">
                 { repos.map ( repo =>
