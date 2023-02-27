@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "05jidqUDevpaaebcEdwSOk3sz1MvUXdr87xLBpv9SbjLqkJmfwDreppjiplXnbHHh5kNHDBiSxNPIGdO0N57hQ==",
+  "dgSpecHash": "PlucWLr9P3xfEnPOjqEzpsBgK/MmRvA+xXpmPnQBTVgQA5M7clLjTtNV5c34Bmohk5BsGL8MkvFxWNa91+OL+g==",
   "success": true,
   "projectFilePath": "C:\\Users\\NoThoughts\\Documents\\GitHub\\My-profile\\Migrations\\Migrations.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\NoThoughts\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.8\\microsoft.entityframeworkcore.abstractions.6.0.8.nupkg.sha512",
     "C:\\Users\\NoThoughts\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.8\\microsoft.entityframeworkcore.analyzers.6.0.8.nupkg.sha512",
     "C:\\Users\\NoThoughts\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.8\\microsoft.entityframeworkcore.design.6.0.8.nupkg.sha512",
+    "C:\\Users\\NoThoughts\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\6.0.3\\microsoft.entityframeworkcore.inmemory.6.0.3.nupkg.sha512",
     "C:\\Users\\NoThoughts\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.8\\microsoft.entityframeworkcore.relational.6.0.8.nupkg.sha512",
     "C:\\Users\\NoThoughts\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\6.0.0\\microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
     "C:\\Users\\NoThoughts\\.nuget\\packages\\microsoft.extensions.caching.memory\\6.0.1\\microsoft.extensions.caching.memory.6.0.1.nupkg.sha512",

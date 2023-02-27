@@ -21,15 +21,7 @@ public class GithubResourceClient : IGithubResourceClient
     /// <returns> A string containing the contents of a repository's readme.md file.</returns>
     public async Task<string?> GetRepositoryInfo(string repositoryName)
     {
-        try
-        {
-            return await _httpClient.GetStringAsync
+        return await _httpClient.GetStringAsync
                 ($"{_configuration.Value.GithubUsername}/{repositoryName}/master/README.md");
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            return await new Task<string?>(() => null);
-        }
     }
 }

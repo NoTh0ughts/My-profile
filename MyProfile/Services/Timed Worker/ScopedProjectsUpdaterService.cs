@@ -58,7 +58,9 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
             {
                 foreach (var project in projects)
                 {
-                    _dbContext.Entry(project).State = EntityState.Modified;
+                    _dbContext.Entry(project).State =_dbContext.Projects.Any(x => x.ID == project.ID) ?
+                        EntityState.Modified :
+                        EntityState.Added;
                     
                     await _dbContext.SaveChangesAsync(cancellationToken);
                     
@@ -69,8 +71,10 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
             {
                 _logger.LogError("Unable to update user repos, error: {}", e.Message);
             }
+            _logger.LogDebug("Count now : {Count}", _dbContext.Projects.Count());
 
             var peridodicity = (int)_config.CurrentValue.UpdatePeriodicity.TotalMilliseconds;
+            _logger.LogDebug("{Periodicity}", peridodicity.ToString());
             await Task.Delay(peridodicity, cancellationToken);
         }
     }

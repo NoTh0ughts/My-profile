@@ -35,31 +35,14 @@ var builder = WebApplication.CreateBuilder(args);
         });
     });
     /*builder.Services.AddCors();*/
+
+    builder.Services.AddDbContext<MyProjectsContext>();
     
     builder.Services.AddLogging();
     
     builder.Services.AddControllersWithViews()
         .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
-    builder.Services.AddDbContext<MyProjectsContext>(optionsBuilder =>
-    {
-        try
-        {
-            var root = Directory.GetCurrentDirectory();
-            var dotenv = Path.Combine(root, ".env");
-            EnvConfiguration.Load(dotenv);
-        
-            var connectionString = EnvConfiguration.MySqlUrl;
-            optionsBuilder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString), 
-                x => x.MigrationsAssembly("Migrations"));
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-        }
-    });
-
-    
     var productInfoHeaderValue = new ProductInfoHeaderValue("NoThoughtsProfile", "1.0");
     
     builder.Services.AddSingleton<IGithubUserClient, GithubUserClient>();

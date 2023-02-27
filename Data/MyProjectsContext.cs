@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using Data.Models;
+﻿using Data.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Data;
@@ -15,7 +14,7 @@ public class MyProjectsContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        
+        optionsBuilder.UseInMemoryDatabase(databaseName: "MyProfileData");
     }
 
 

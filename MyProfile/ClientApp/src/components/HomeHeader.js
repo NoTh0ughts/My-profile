@@ -13,7 +13,7 @@ export class HomeHeader extends Component {
                          src="https://img.shields.io/badge/vk-blue?logo=vk&logoColor=transparent&labelColor=transparent"
                          alt="Vk"/>
                 </a>
-                <a className="grayscale m-1" href="https://t.me/NoThoughts_exe">
+                <a className="grayscale m-1" href="https://t.me/NoThoughts_zip">
                     <img src="https://img.shields.io/badge/Telegram-blue?logo=telegram&logoColor=transparent&logoColor=blue"
                          alt="Telegram"/>
                 </a>
