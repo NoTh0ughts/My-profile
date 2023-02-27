@@ -1,12 +1,14 @@
 ﻿.navbar-nav {
   gap:1rem;
-  margin-left: 25px;
+  margin-left: 15px;
 }
 
 .navigation-button {
   padding-left: 20px;
   color: white;
   transition: 0.1s;
+  text-shadow: 0 0 5px #5b5b5b;
+  font-weight: 300;
 }
 
 .navigation-button:focus {

@@ -1,3 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100&display=swap");
+
+* {
+    z-index: 1;
+}
+
+:root {
+    --relSize: calc(1vw + 1vh);
+}
+
+.code-snippet {
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: calc(var(--relSize) / 1.5);
+    opacity: 0.3;
+    color: white;
+    will-change: contents;
+}
+
+.code-snippet-text {
+    font-family: "JetBrains Mono", sans-serif;
+    font-size: 1.4vh;
+    opacity: 0.3;
+    color: white;
+    z-index: -1;
+    will-change: contents;
+}
+
 .grayscale {
   filter: grayscale(100%);
   transition: 0.1s;
@@ -5,10 +32,6 @@
 
 .grayscale:hover {
   filter: grayscale(0);
-}
-
-.bg-darkgrey {
-    background-color: #333333;
 }
 
 .nav-root {
@@ -19,5 +42,9 @@
     .nav-root {
       display: block;
     }
+}
+
+.typed-cursor {
+    font-size: calc(var(--relSize) * 1.4);
 }
 

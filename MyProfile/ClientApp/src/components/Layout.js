@@ -9,7 +9,7 @@ export class Layout extends Component {
 
   render () {
     return (
-      <div className="bg-black mb-5">
+      <div>
           <HomeHeader/>
           <div className="nav-root">
                 <NavMenu/>

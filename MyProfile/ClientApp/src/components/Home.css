@@ -1,0 +1,12 @@
+﻿.header-description-text {
+    color: orange;
+    font-size: calc(var(--relSize) * 1.7);
+    letter-spacing: calc(var(--relSize) / 5.2);
+}
+
+.profile-photo {
+    object-fit: cover;
+    width: 40%;
+    min-width: 400px;
+    aspect-ratio: 0.7;
+}
