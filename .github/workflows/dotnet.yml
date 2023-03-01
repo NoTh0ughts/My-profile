@@ -23,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore MyProfile.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build MyProfile --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
