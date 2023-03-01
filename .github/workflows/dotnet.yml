@@ -25,4 +25,6 @@ jobs:
     - name: Build
       run: dotnet build MyProfile --no-restore
     - name: Test
-      run: cd Tests && dotnet Tests --no-build --verbosity normal
+      run: | 
+        cd Tests 
+        dotnet test --no-build --verbosity normal
