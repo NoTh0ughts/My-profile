@@ -35,15 +35,17 @@
 
 .skill-block {
     display: block;
-    padding: 24px;
+    padding: 15px;
     text-align: center;
     overflow: hidden;
-    width: 33%;
+    width: 22%;
+    min-width: 200px;
     max-width: 250px;
 }
+
 @media only screen and (max-width: 1000px) {
     .skill-block {
-        width: 45%;
+        width: 40%;
         -ms-flex-pack: distribute;
         justify-content: space-around
     }

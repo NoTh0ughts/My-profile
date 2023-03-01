@@ -26,7 +26,6 @@ export class MyProjects extends Component {
 
     static renderProjectsList(repos){
         repos = repos.sort((a, b) => b['createdAt'] < a['createdAt'])
-        
         return ( <div className="d-flex">
             <VerticalTimeline lineColor="orange">
                 { repos.map ( repo =>

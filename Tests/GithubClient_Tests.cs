@@ -22,11 +22,8 @@ public class GithubClient_Tests
                 
             }
         };
-
-        var userConfigurationFile = "C:\\Users\\Hello\\RiderProjects\\MyProfile\\MyProfile\\UserConfiguration.Development.json";
-        var jsonRoot = JObject.Parse(await File.ReadAllTextAsync(userConfigurationFile));
-        var userConfigJson = jsonRoot.GetValue("UserConfiguration") as JObject;
-        var username = userConfigJson?.GetValue("GitHubUsername").ToString();
+        
+        var username = "NoTh0ughts";
 
         IGithubResourceClient gitHubClient = new GithubResourceClient(httpClient,
             Options.Create(new UserConfiguration() { GithubUsername = username }));

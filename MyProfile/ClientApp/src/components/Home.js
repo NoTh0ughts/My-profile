@@ -22,8 +22,8 @@ export function Home() {
     }, []);
 
     return (
-        <div className="text-white d-flex">
-            <img src={ myPhoto } className="profile-photo" alt="logo"/>
+        <div className="home-root text-white">
+            <img src={ myPhoto } className="profile-photo m-2" alt="logo"/>
             <div className="d-inline-block pl4 ms-4">
                 <span className="header-description-text">Привет, я </span>
                 <span className="header-description-text text-nowrap" ref={el}></span>
