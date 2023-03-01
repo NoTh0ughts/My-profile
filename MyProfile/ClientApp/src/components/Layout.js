@@ -10,12 +10,13 @@ export class Layout extends Component {
   render () {
     return (
       <div>
-          <HomeHeader/>
           <div className="nav-root">
                 <NavMenu/>
-                <Container>
-                    {this.props.children}
-                </Container>
+                <div className="content-wrapper">
+                    <Container>
+                        {this.props.children}
+                    </Container>
+                </div>
           </div>
       </div>
     );

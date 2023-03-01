@@ -25,6 +25,12 @@
     will-change: contents;
 }
 
+.content-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 3vw;
+}
+
 .grayscale {
   filter: grayscale(100%);
   transition: 0.1s;
@@ -35,7 +41,8 @@
 }
 
 .nav-root {
-  display: flex;
+    display: flex;
+    min-height: 100vh;
 }
 
 @media only screen and (max-width: 1000px) {
