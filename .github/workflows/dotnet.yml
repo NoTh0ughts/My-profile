@@ -35,4 +35,4 @@ jobs:
         run: dotnet build MyProfile.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test Tests/bin/Debug/net6.0/Tests.dll --no-build --verbosity normal
+        run: dotnet test Tests/bin/Release/net6.0/Tests.dll --no-build --verbosity normal
