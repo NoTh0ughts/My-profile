@@ -29,10 +29,10 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore MyProfile.sln
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build MyProfile.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test Tests\bin\Debug\net6.0\Tests.dll --no-restore --verbosity normal
