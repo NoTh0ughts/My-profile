@@ -19,8 +19,8 @@ services:
     ports:
       - 44492:44492
     build:
-      context: .
-      dockerfile: MyProfile/ClientApp/Dockerfile
+      context: MyProfile/ClientApp
+      dockerfile: Dockerfile
     networks:
       api:
     depends_on:
