@@ -6,8 +6,6 @@ networks:
 services:
   mpserver:
     image: profile_server
-    ports:
-      - 80:80
     build:
       context: .
       dockerfile: MyProfile/Dockerfile
@@ -16,8 +14,6 @@ services:
         
   mpclient:
     image: profile_client
-    ports:
-      - 44492:44492
     build:
       context: MyProfile/ClientApp
       dockerfile: Dockerfile
