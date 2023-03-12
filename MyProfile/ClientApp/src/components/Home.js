@@ -24,7 +24,7 @@ export function Home() {
         <div className="home-root text-white">
             <img src={ myPhoto } className="profile-photo m-2" alt="logo"/>
             <div className="d-inline-block pl4 ms-4">
-                <span className="header-description-text">Привет, я Деревянкин Павел </span>
+                <span className="header-description-text">Привет, я Деревянкин Павел.</span>
                 {/*<span className="header-description-text text-nowrap" ref={el}></span>*/}
             
                 <h3 className="text-white text-opacity-75">C# Backend developer</h3>
