@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Добавление конф файлов
 builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.EnvironmentName}.json", false, true);
 
+// Ваня привет
 
 // Добавление сервисов в контейнер DI
 {

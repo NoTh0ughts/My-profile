@@ -49,7 +49,7 @@ public class GithubClient_Tests
         };
         
         IGithubResourceClient gitHubClient = new GithubResourceClient(httpClient,
-            Options.Create(new UserConfiguration() { GithubUsername = username }));
+            Options.Create(new UserConfiguration { GithubUsername = username }));
         Assert.Equal("",  await gitHubClient.GetRepositoryInfo("MessengerCS"));
     }
 }
