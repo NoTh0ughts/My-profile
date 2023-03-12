@@ -1,10 +1,9 @@
-import React , {useEffect , useRef} from 'react';
+import React  from 'react';
 import myPhoto from "../photo_2022-06-24_16-07-46.jpg"
-import Typed from "typed.js";
 import "./Home.css"
 
 export function Home() {
-
+/*
     const el = useRef(null);
 
     useEffect(() => {
@@ -19,14 +18,14 @@ export function Home() {
         return () => {
             typed.destroy();
         };
-    }, []);
+    }, []);*/
 
     return (
         <div className="home-root text-white">
             <img src={ myPhoto } className="profile-photo m-2" alt="logo"/>
             <div className="d-inline-block pl4 ms-4">
-                <span className="header-description-text">Привет, я </span>
-                <span className="header-description-text text-nowrap" ref={el}></span>
+                <span className="header-description-text">Привет, я Деревянкин Павел </span>
+                {/*<span className="header-description-text text-nowrap" ref={el}></span>*/}
             
                 <h3 className="text-white text-opacity-75">C# Backend developer</h3>
                 <br/>

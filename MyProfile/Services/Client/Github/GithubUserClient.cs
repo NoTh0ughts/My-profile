@@ -15,15 +15,17 @@ public class GithubUserClient : IGithubUserClient
     
     public async Task<List<RepositoryInfo>?> GetUserRepositories()
     {
+        List<RepositoryInfo>? result = null;
         try
         {
-            return await _httpClient.GetFromJsonAsync<List<RepositoryInfo>>
+            result = await _httpClient.GetFromJsonAsync<List<RepositoryInfo>>
                 ($"{_configuration.Value.GithubUsername}/repos?type=owner");
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return await new Task<List<RepositoryInfo>?>(() => null);
         }
+
+        return result;
     }
 }

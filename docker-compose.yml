@@ -1,23 +1,10 @@
 version: '3.4'
 
-networks:
-  api:
-    
 services:
-  mpserver:
-    image: profile_server
+  mp_server:
     build:
       context: .
       dockerfile: MyProfile/Dockerfile
-    networks:
-      api:
-        
-  mpclient:
-    image: profile_client
-    build:
-      context: MyProfile/ClientApp
-      dockerfile: Dockerfile
-    networks:
-      api:
-    depends_on:
-      - mpserver
+    ports:
+      - "50000:50000"
+      - "44492:44492"

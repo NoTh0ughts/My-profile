@@ -37,19 +37,13 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
         _resourceClient = resourceClient;
         _userClient = userClient;
     }
-
-    /// <summary> The DoWork function is the method that will be called when the service starts.
-    /// It does not take any parameters and returns a Task.</summary>
-    ///
-    /// <param name="cancellationToken"> The token to monitor for cancellation requests.</param>
-    ///
-    /// <returns> A &lt;see cref=&quot;task{tresult}&quot;/&gt; that represents the asynchronous operation.</returns>
+    
     public async Task DoWork(CancellationToken cancellationToken)
     {
         while (cancellationToken.IsCancellationRequested == false)
         {
             _executionCount++;
-            _logger.LogInformation("Scoped Project Updater Service is working. Count: {Count}", _executionCount);
+            _logger.LogInformation("Scoped Project Updater Service is working. Cycles count: {Count}", _executionCount);
 
             // Загружаем инфу о проектах
             var projects = await FetchProjects();
@@ -71,18 +65,16 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
             {
                 _logger.LogError("Unable to update user repos, error: {}", e.Message);
             }
-            _logger.LogDebug("Count now : {Count}", _dbContext.Projects.Count());
-
+            
+            _logger.LogInformation("Setted periodicity (seconds) : {TotalSeconds}", _config.CurrentValue.UpdatePeriodicity.TotalSeconds);
+            
             var peridodicity = (int)_config.CurrentValue.UpdatePeriodicity.TotalMilliseconds;
-            _logger.LogDebug("{Periodicity}", peridodicity.ToString());
+
             await Task.Delay(peridodicity, cancellationToken);
         }
     }
-
-    /// <summary> The FetchProjects function fetches the projects from the GitHub API and saves them to a database.</summary>
-    ///
-    ///
-    /// <returns> A list of projects.</returns>
+    
+    
     private async Task<IEnumerable<Project>> FetchProjects()
     {
         // Получаем список репозиториев пользователя
@@ -131,7 +123,7 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
             }
             catch (Exception e)
             {
-                _logger.LogDebug("Unable to update user repos, error: {Error}, with repo: {RepoName}", 
+                _logger.LogInformation("Unable to update user repos, error: {Error}, with repo: {RepoName}", 
                     e.Message, repo.Name);
             }
         }

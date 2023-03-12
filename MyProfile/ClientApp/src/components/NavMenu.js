@@ -9,7 +9,7 @@ export class NavMenu extends Component {
 
     render () {
         return (
-            <Navbar color="faded" className="mr-5 d-inline-block text-nowrap"   >
+            <Navbar className="d-inline-block text-nowrap">
                 <HomeHeader/>
                 <Nav navbar className="flex-column text-uppercase fs-1">
                     <NavItem>

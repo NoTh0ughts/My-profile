@@ -1,20 +1,17 @@
 using System.Net.Http.Headers;
 using System.Text.Json.Serialization;
 using Data;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using MyProfile;
 using MyProfile.Constants;
-using MyProfile.Services;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using MyProfile.Services.Client.Github;
 using MyProfile.Services.Timed_Worker;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Добавление конф файлов
-{
-    builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.EnvironmentName}.json", false, true);
-}
+builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.EnvironmentName}.json", false, true);
 
 
 // Добавление сервисов в контейнер DI
@@ -34,7 +31,6 @@ var builder = WebApplication.CreateBuilder(args);
             }
         });
     });
-    /*builder.Services.AddCors();*/
 
     builder.Services.AddDbContext<MyProjectsContext>();
     
@@ -52,6 +48,10 @@ var builder = WebApplication.CreateBuilder(args);
         client.DefaultRequestHeaders.UserAgent.Add(productInfoHeaderValue);
     });
 
+    builder.Services.AddSpaStaticFiles(configuration => {
+        configuration.RootPath = "wwwroot";
+    });
+    
     builder.Services.AddSingleton<IGithubResourceClient, GithubResourceClient>();
     builder.Services.AddHttpClient<IGithubResourceClient, GithubResourceClient>(client =>
     {
@@ -62,6 +62,8 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddOptions<UserConfiguration>()
         .Bind(builder.Configuration.GetSection(UserConfiguration.SectionName))
         .ValidateDataAnnotations();
+    
+    
     
     // Добавление Background сервисов
     {
@@ -76,19 +78,20 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyProfile v1"));
     
-    /*app.UseCors(policyBuilder =>
-    {
-        policyBuilder.AllowAnyOrigin()
-            .AllowAnyHeader()
-            .AllowAnyMethod();
-    });*/
-    
-    app.UseStaticFiles();
+    app.UseStaticFiles(new StaticFileOptions());
     app.UseRouting();
     
     app.MapControllerRoute(
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
+    
+    app.UseSpa(spa => {
+        spa.Options.SourcePath = "ClientApp";
+
+        if (app.Environment.IsDevelopment()) {
+            spa.UseReactDevelopmentServer(npmScript: "start");
+        }
+    });
 
     app.UseEndpoints(endpoints => endpoints.MapControllers());
     

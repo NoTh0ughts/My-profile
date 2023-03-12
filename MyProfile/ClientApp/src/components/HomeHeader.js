@@ -5,7 +5,7 @@ import  "./SkillBlock.css"
 export class HomeHeader extends Component {
     render() {
         return (
-            <div className="position-static d-inline-block m-4 glass p-4">
+            <div className="position-static d-inline-block ms-3 glass p-4">
                 <h3 className="my-name-header text-white text-uppercase">Деревянкин Павел</h3>
 
                 <a href="https://vk.com/noth0ughts" className="m-2">

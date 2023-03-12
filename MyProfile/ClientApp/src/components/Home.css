@@ -1,7 +1,7 @@
 ﻿.header-description-text {
     color: orange;
-    font-size: calc(var(--relSize) * 1.7);
-    letter-spacing: calc(var(--relSize) / 5.2);
+    font-size: calc(var(--relSize) * 1.5);
+    letter-spacing: calc(var(--relSize) / 10);
 }
 
 .profile-photo {
