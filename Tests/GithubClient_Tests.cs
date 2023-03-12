@@ -50,8 +50,6 @@ public class GithubClient_Tests
         
         IGithubResourceClient gitHubClient = new GithubResourceClient(httpClient,
             Options.Create(new UserConfiguration() { GithubUsername = username }));
-
-        var repositoryInfo = await Assert.ThrowsAsync<HttpRequestException>(
-            () => gitHubClient.GetRepositoryInfo("MessengerCS"));
+        Assert.Equal("",  await gitHubClient.GetRepositoryInfo("MessengerCS"));
     }
 }
