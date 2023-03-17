@@ -10,11 +10,12 @@ public class MyProjectsContext : DbContext
 
     public MyProjectsContext(DbContextOptions<MyProjectsContext> options)
         : base(options)
-    {}
+    {
+        
+    }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseInMemoryDatabase(databaseName: "MyProfileData");
     }
 
 
@@ -42,10 +43,8 @@ public class MyProjectsContext : DbContext
             .WithMany(t => t.Projects);
 
         modelBuilder.Entity<Technology>().HasKey(t => t.ID);
-        modelBuilder.Entity<Technology>().HasIndex(x => x.Name).IsUnique();
         modelBuilder.Entity<Technology>().Property(t => t.Name)
             .IsRequired()
             .HasMaxLength(30);
-
     }
 }

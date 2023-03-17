@@ -31,4 +31,5 @@ COPY --from=publish /app/publish .
 COPY --from=node-builder /node/build ./wwwroot
 
 ENV ASPNETCORE_URLS=http://0.0.0.0:50000
+
 ENTRYPOINT ["dotnet", "MyProfile.dll"]

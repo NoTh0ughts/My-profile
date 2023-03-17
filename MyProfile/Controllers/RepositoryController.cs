@@ -20,11 +20,13 @@ public class RepositoryController : Controller
     [HttpGet]
     public async Task<IActionResult> Get(CancellationToken token)
     {
+        _logger.LogInformation("Context: {Id}", _context.ContextId.InstanceId);
         try
         {
             var result = await _context.Projects
                 .Include(x => x.Technologies)
                 .AsNoTracking()
+                .OrderByDescending(x => x.CreatedAt)
                 .ToListAsync(token);
 
             return Ok(result);

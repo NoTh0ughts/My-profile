@@ -5,6 +5,8 @@ using Microsoft.OpenApi.Models;
 using MyProfile;
 using MyProfile.Constants;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
+using Microsoft.EntityFrameworkCore;
+using MyProfile.Services;
 using MyProfile.Services.Client.Github;
 using MyProfile.Services.Timed_Worker;
 
@@ -12,8 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Добавление конф файлов
 builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.EnvironmentName}.json", false, true);
-
-// Ваня привет
 
 // Добавление сервисов в контейнер DI
 {
@@ -28,12 +28,20 @@ builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.Envir
             {
                 Name = "Repo:",
                 Email = "",
-                Url = new Uri("https://github.com/NoTh0ughts/My-profile")
+                Url = new Uri("https://github.com/NoTh0ughts/My-profile"),
             }
         });
     });
 
-    builder.Services.AddDbContext<MyProjectsContext>();
+  
+    builder.Services.AddDbContext<MyProjectsContext>(optionsBuilder =>
+    {  
+        optionsBuilder.UseMySql(EnvConfiguration.MySqlUrl, 
+            ServerVersion.AutoDetect(EnvConfiguration.MySqlUrl),
+            x => x.MigrationsAssembly("Migrations"));
+    });
+
+   
     
     builder.Services.AddLogging();
     

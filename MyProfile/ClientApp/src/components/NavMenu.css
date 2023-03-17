@@ -5,6 +5,7 @@
 
 .navigation-button {
   padding-left: 20px;
+  padding-right: 20px;
   color: white;
   transition: 0.1s;
   text-shadow: 0 0 5px #5b5b5b;

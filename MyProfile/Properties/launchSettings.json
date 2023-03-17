@@ -5,7 +5,11 @@
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
+        "MYSQL_SERVER": "localhost",
+        "MYSQL_PORT": "3306",
+        "MYSQL_ROOT_PASSWORD": "Stepup007",
+        "MYSQL_DATABASE": "profile"        
       },
       "useSSL": false,
       "applicationUrl": "http://0.0.0.0:20000"

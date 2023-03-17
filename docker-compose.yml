@@ -2,6 +2,11 @@ version: '3.4'
 
 services:
   mp_server:
+    environment:
+      - MYSQL_SERVER=host.docker.internal
+      - MYSQL_PORT=3306
+      - MYSQL_ROOT_PASSWORD=Stepup007
+      - MYSQL_DATABASE=profile
     build:
       context: .
       dockerfile: MyProfile/Dockerfile
