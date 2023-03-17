@@ -2,6 +2,8 @@
 using Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
 using MyProfile.Controllers;
 
 namespace Tests;
@@ -15,7 +17,8 @@ public class RepositoryController_Tests
         var optionsBuilder = new DbContextOptionsBuilder<MyProjectsContext>();
         optionsBuilder.UseInMemoryDatabase("temp_projects");
         
-        var controller = new RepositoryController(default, new MyProjectsContext(optionsBuilder.Options));
+        var controller = new RepositoryController(new Mock<ILogger<RepositoryController>>().Object , 
+            new MyProjectsContext(optionsBuilder.Options));
         var result = await controller.Get(default);
         
         Assert.NotNull(result);
@@ -45,7 +48,7 @@ public class RepositoryController_Tests
         await ctx.SaveChangesAsync();
         
         // Создаем контроллер
-        var controller = new RepositoryController(default, ctx);
+        var controller = new RepositoryController(new Mock<ILogger<RepositoryController>>().Object, ctx);
         Assert.NotNull(controller);
         
         // Получаем данные с контроллера

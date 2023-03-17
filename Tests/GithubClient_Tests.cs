@@ -19,14 +19,13 @@ public class GithubClient_Tests
                 {
                     new ProductInfoHeaderValue("NoThoughtsProfile", "1.0")
                 }
-                
             }
         };
         
         var username = "NoTh0ughts";
 
         IGithubResourceClient gitHubClient = new GithubResourceClient(httpClient,
-            Options.Create(new UserConfiguration() { GithubUsername = username }));
+            Options.Create(new UserConfiguration { GithubUsername = username }));
 
         var repositoryInfo = await gitHubClient.GetRepositoryInfo("MessengerCS");
         Assert.NotNull(repositoryInfo);
