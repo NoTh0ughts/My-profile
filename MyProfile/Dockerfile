@@ -21,8 +21,11 @@ RUN dotnet publish "MyProfile.csproj" -c Release -o /app/publish
 
 FROM node AS node-builder
 WORKDIR /node
+
+COPY MyProfile/ClientApp/package*.json /node
+RUN npm ci
+
 COPY MyProfile/ClientApp /node
-RUN npm install
 RUN npm run build
 
 FROM base AS final
