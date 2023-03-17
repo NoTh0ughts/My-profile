@@ -2,12 +2,8 @@ version: '3.4'
 
 services:
   mp_server:
-    environment:
-      - MYSQL_SERVER=
-      - MYSQL_PORT=
-      - MYSQL_PASSWORD=
-      - MYSQL_DATABASE=
-      - MYSQL_USER=
+    env_file:
+      - .env
     build:
       context: .
       dockerfile: MyProfile/Dockerfile
