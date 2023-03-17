@@ -39,6 +39,7 @@ builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.Envir
         optionsBuilder.UseMySql(EnvConfiguration.MySqlUrl, 
             ServerVersion.AutoDetect(EnvConfiguration.MySqlUrl),
             x => x.MigrationsAssembly("Migrations"));
+        
     });
 
    
@@ -89,7 +90,10 @@ var app = builder.Build();
     
     app.UseStaticFiles(new StaticFileOptions());
     app.UseRouting();
-    
+
+    var context = app.Services.GetRequiredService<MyProjectsContext>();
+    if (context.Database.GetPendingMigrations().Any()) context.Database.Migrate();
+
     app.MapControllerRoute(
         name: "default",
         pattern: "{controller}/{action=Index}/{id?}");
