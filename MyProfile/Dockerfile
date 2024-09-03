@@ -9,15 +9,20 @@ WORKDIR /src
 COPY ["MyProfile/MyProfile.csproj", "MyProfile/"]
 COPY ["Data/Data.csproj", "Data/"]
 COPY ["Migrations/Migrations.csproj", "Migrations/"]
+COPY ["Tests/Tests.csproj", "Tests/"]
 RUN dotnet restore "MyProfile/MyProfile.csproj"
 COPY . .
 
 WORKDIR "/src/MyProfile"
 
 RUN dotnet build "MyProfile.csproj" -c Release -o /app/build
+RUN dotnet build "../Tests/Tests.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "MyProfile.csproj" -c Release -o /app/publish
+RUN dotnet publish "../Tests/Tests.csproj" -c Release -o /app/build
+
+RUN dotnet test "../Tests/Tests.csproj"
 
 FROM node AS node-builder
 WORKDIR /node

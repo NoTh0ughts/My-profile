@@ -1,25 +1,8 @@
 import React  from 'react';
-import myPhoto from "../photo_2022-06-24_16-07-46.jpg"
+import myPhoto from "../photo_2024-09-03_22-22-23.jpg"
 import "./Home.css"
 
 export function Home() {
-/*
-    const el = useRef(null);
-
-    useEffect(() => {
-        const typed = new Typed(el.current, {
-            strings: ["Программист", "C# Разработчик"],
-            loop: true,
-            typeSpeed: 100,
-            backSpeed: 80,
-            backDelay: 1500,
-        });
-        
-        return () => {
-            typed.destroy();
-        };
-    }, []);*/
-
     return (
         <div className="home-root text-white">
             <img src={ myPhoto } className="profile-photo m-2" alt="logo"/>
@@ -31,10 +14,12 @@ export function Home() {
                 <br/>
                 <h2 className="header-description-text ">О себе:</h2>
                 <p className="p font-weight-normal">
-                    Занимаюсь backend - разработкой на языке C#. <br/>
-                    Выпускник ВолГТУ Факультета Электроники и Вычислительной Техники <br/>
-                    по направлению "Информатика и вычислительная техника" в 2022 году.<br/>
-                    С 2022 года магистрант ВолГТУ направления "Исскуственный интелект в киберфизических системах" <br/>
+                    Занимаюсь backend - разработкой на языке C# с 2021 года. <br/>
+                    Выпускник бакалавриата и магистратуры ВолГТУ Факультета Электроники и Вычислительной Техники <br/>
+                    по направлению "Информатика и вычислительная техника" с 2024 года.<br/><br/>
+                    - Позитивный, доброжелательный, быстро обучаюсь и готов к интересным задачам.<br/>
+                    - Стараюсь быть на волне технологий и осваивать новые навыки.<br/>
+                    - Хобби: компьютерные игры, пэт - проекты, гитара<br/>
                 </p>
             </div>
 
