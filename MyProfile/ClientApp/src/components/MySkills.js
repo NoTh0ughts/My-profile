@@ -1,13 +1,13 @@
 ﻿import React, { Component } from 'react';
 import {DottedProgressBar} from "./DottedProgressBar";
 import {SkillBlock} from "./SkillBlock";
-import {TbBook2 , TbCSharp , TbDatabase , TbDots} from "react-icons/tb";
+import {TbBook2 , TbBrandCSharp , TbDatabase , TbDots} from "react-icons/tb";
 
 export class MySkills extends Component {
     static displayName = MySkills.name;
 
     render() {
-        const csharpIcon = <TbCSharp className="skill-block-icon" style={{backgroundColor: "#731c91"}}/>;
+        const csharpIcon = <TbBrandCSharp className="skill-block-icon" style={{backgroundColor: "#731c91"}}/>;
         const databaseIcon = <TbDatabase className="skill-block-icon" style={{backgroundColor: "#2e95ff"}}/>;
         const otherIcon = <TbDots className="skill-block-icon" style={{backgroundColor: "orange"}}/>;
         const eduInProgressIcon = <TbBook2 className="skill-block-icon" style={{backgroundColor: "#40a139"}}/>;

@@ -39,11 +39,8 @@ builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.Envir
         optionsBuilder.UseMySql(EnvConfiguration.MySqlUrl, 
             ServerVersion.AutoDetect(EnvConfiguration.MySqlUrl),
             x => x.MigrationsAssembly("Migrations"));
-        
     });
 
-   
-    
     builder.Services.AddLogging();
     
     builder.Services.AddControllersWithViews()

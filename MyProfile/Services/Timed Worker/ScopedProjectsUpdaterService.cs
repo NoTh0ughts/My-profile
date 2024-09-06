@@ -79,6 +79,8 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
     {
         // Получаем список репозиториев пользователя
         var userRepos = await _userClient.GetUserRepositories();
+        if (userRepos is null) return Array.Empty<Project>();
+        
         // Тут будет список проектов
         var projectsList = new List<Project>(userRepos.Count);
         
@@ -89,6 +91,8 @@ public class ScopedProjectsUpdaterService : IScopedProjectUpdaterService
             {
                 // Достаем инфу о репозитории и парсим ее
                 var stringRepoInfo = await _resourceClient.GetRepositoryInfo(repo.Name);
+                if (stringRepoInfo is null) return Array.Empty<Project>();
+                
                 var repoInfo = ParseFromHtml(stringRepoInfo);
 
                 var techs = new List<Technology>();

@@ -60,9 +60,9 @@ public class RepositoryController_Tests
 
         // Преобразуем результат и проверяем
         var okResult = actionResult as OkObjectResult;
-        var projects = okResult.Value as IEnumerable<Project>;
+        var projects = okResult?.Value as IEnumerable<Project>;
         
         Assert.NotNull(projects);
-        Assert.Equal(projects.FirstOrDefault().CreatedAt, project.CreatedAt);
+        Assert.Equal(projects?.FirstOrDefault()?.CreatedAt, project.CreatedAt);
     }
 }

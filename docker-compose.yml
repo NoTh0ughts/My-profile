@@ -1,12 +1,22 @@
-version: '3.4'
-
 services:
   mp_server:
+    restart: 
+      on-failure:10
     env_file:
       - .env
     build:
       context: .
-      dockerfile: MyProfile/Dockerfile
+      dockerfile: Dockerfile
     ports:
       - "50000:50000"
       - "44492:44492"
+    depends_on:
+      - db
+  db:
+    env_file:
+      - .env
+    cap_add:
+      - SYS_NICE
+    image: mysql
+    restart: always
+    
