@@ -1,3 +1,4 @@
+FROM alpine:3.14
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:8.0-alpine AS build
 ARG TARGETARCH
 WORKDIR /app
