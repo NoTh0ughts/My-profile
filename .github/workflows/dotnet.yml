@@ -10,7 +10,7 @@ on:
     branches: [ "master" ]
 
 env:
-  DOTNET_VERSION: '6.0.401' # The .NET SDK version to use
+  DOTNET_VERSION: '8.0' # The .NET SDK version to use
 
 jobs:
   build-and-test:
@@ -35,4 +35,4 @@ jobs:
         run: dotnet build MyProfile.sln --configuration Release --no-restore
 
       - name: Test
-        run: dotnet test Tests/bin/Release/net6.0/Tests.dll --no-build --verbosity normal
+        run: dotnet test Tests/bin/Release/net8.0/Tests.dll --no-build --verbosity normal
