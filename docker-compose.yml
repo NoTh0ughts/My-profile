@@ -17,6 +17,6 @@ services:
       - .env
     cap_add:
       - SYS_NICE
-    image: alpine/mysql:15.1
+    image: mysql
     restart: always
     

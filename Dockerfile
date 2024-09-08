@@ -20,7 +20,7 @@ RUN dotnet build "./Tests/Tests.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "./MyProfile/MyProfile.csproj" --no-restore -a $TARGETARCH -c Release -o /app/publish
-RUN dotnet publish "./Tests/Tests.csproj" --no-restore -a $TARGETARCH -c Release -o /app/build
+RUN dotnet publish "./Tests/Tests.csproj" --no-restore -a $TARGETARCH -c Release -o /app/build 
 
 RUN dotnet test "./Tests/Tests.csproj"
 
