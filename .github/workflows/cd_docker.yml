@@ -23,6 +23,6 @@ jobs:
     - name: Deploy using ssh
       uses: actions/checkout@v2
     - name: Run ssh session and launch scripts
-      run:
-        ssh -i ${{ secrets.PRIVATE_KEY }} . ${{ secrets.USERNAME }}@${{ secrets.HOST }} '~/host/deployments/down_profile.sh && ~/host/deployments/deploy_profile.sh'
+      run: |
+        ssh -i ${{ secrets.PRIVATE_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} '~/host/deployments/down_profile.sh && ~/host/deployments/deploy_profile.sh'
   
