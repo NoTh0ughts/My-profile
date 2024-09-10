@@ -21,6 +21,8 @@ services:
       - SYS_NICE
     image: mysql
     restart: always
+    networks:
+      - subnetwork
 networks:
   subnetwork:
     external: true  
