@@ -43,6 +43,6 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 COPY --from=node_builder /node/build ./wwwroot
 
-ENV ASPNETCORE_URLS=http://0.0.0.0:50000
+ENV ASPNETCORE_URLS=http://0.0.0.0:20000
 
 ENTRYPOINT ["dotnet", "MyProfile.dll"]

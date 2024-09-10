@@ -6,9 +6,9 @@ services:
       - .env
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: ./Dockerfile
     ports:
-      - "50000:50000"
+      - "20000:20000"
       - "44492:44492"
     depends_on:
       - db

@@ -1,6 +1,4 @@
-version: '3.4'
-
 services:
-  mp_server:
+  nothoughts:
     environment:
       - ASPNETCORE_ENVIRONMENT=Production
