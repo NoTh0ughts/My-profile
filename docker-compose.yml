@@ -1,6 +1,6 @@
 services:
   mp_server:
-    restart: 
+    restart:
       on-failure:10
     env_file:
       - .env
@@ -23,6 +23,6 @@ services:
     restart: always
 networks:
   ext_subnet:
-    external: 
+    external:
       name: subnet    
     
