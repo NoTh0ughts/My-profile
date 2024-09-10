@@ -24,8 +24,11 @@ jobs:
       
     - name: Add ssh key
       run: |
+        echo "LEN ---- ${SSHP}"
         echo "${{ secrets.PRIVATE_KEY }}" > /tmp/ssh_private_key
         chmod 600 /tmp/ssh_private_key
+      env:
+        SSHP: ${{ secrets.PRIVATE_KEY }}
 
     - name: Run deploy on ssh
       run: |
