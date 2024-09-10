@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  deploy:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -22,7 +22,16 @@ jobs:
     steps:
     - name: Deploy using ssh
       uses: actions/checkout@v2
-    - name: Run ssh session and launch scripts
+      
+    - name: Add ssh key
       run: |
-        ssh -i ${{ secrets.PRIVATE_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} '~/host/deployments/down_profile.sh && ~/host/deployments/deploy_profile.sh'
-  
+        echo "${{ secrets.PRIVATE_KEY }}" > /tmp/ssh_private_key
+        chmod 600 /tmp/ssh_private_key
+
+    - name: Run deploy on ssh
+      run: |
+        ssh -i /tmp/ssh_private_key ${{ secrets.USERNAME }}@${{ secrets.HOST }} '~/host/deployments/down_profile.sh && ~/host/deployments/deploy_profile.sh'
+
+    - name: Remove ssh key
+      run: |
+        rm /tmp/ssh_private_key
