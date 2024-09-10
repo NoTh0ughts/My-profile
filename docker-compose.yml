@@ -12,6 +12,8 @@ services:
       - "44492:44492"
     depends_on:
       - db
+    networks:
+      - ext_subnet
   db:
     env_file:
       - .env
@@ -19,4 +21,8 @@ services:
       - SYS_NICE
     image: mysql
     restart: always
+networks:
+  ext_subnet:
+    external: 
+      name: subnet    
     
