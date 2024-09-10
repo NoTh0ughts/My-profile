@@ -21,11 +21,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - name: Deploy using ssh
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.PRIVATE_KEY }}
-        port: 22
-        script: |
-          ~/deploy.sh
+      uses: actions/checkout@v2
+    - name: Run ssh session and launch scripts
+      run:
+        ssh -i ${{ secrets.PRIVATE_KEY }} . ${{ secrets.USERNAME }}@${{ secrets.HOST }} '~/host/deployments/down_profile.sh && ~/host/deployments/deploy_profile.sh'
+  
