@@ -1,5 +1,5 @@
 services:
-  mp_server:
+  nothoughts:
     restart:
       on-failure:10
     env_file:
