@@ -234,5 +234,6 @@ _Pvt_Extensions
 # FAKE - F# Make
 .fake/
 .env
+redis.env
 /Data/bin
 /Data/obj

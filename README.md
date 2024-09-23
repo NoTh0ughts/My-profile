@@ -21,13 +21,8 @@
 * React
 * ASP.NET Core
 * xUnit
+* Redis
+* Docker-compose
+* AutoMapper
 
 </div>
-
-## Как запустить?
-
-1. Скопировать репозиторий коммандой ```git clone https://github.com/NoTh0ughts/My-profile My-profile```
-2. Установить имя пользоватея в файле ```MyProfile/UserConfiguration.Production.json```
-3. Перейти в дирректорию  MyProfile
-4. Запустить контейнер коммандой ```docker-compose up```
-5. Теперь страница доступна по адресу localhost:50000
