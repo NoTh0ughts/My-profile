@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Data;
+﻿using Data;
 using Data.Models;
 using HtmlAgilityPack;
 using Microsoft.Extensions.Options;

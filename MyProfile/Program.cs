@@ -1,95 +1,41 @@
-using System.Net.Http.Headers;
-using System.Text.Json.Serialization;
-using Data;
-using Microsoft.OpenApi.Models;
-using MyProfile;
-using MyProfile.Constants;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
-using Microsoft.EntityFrameworkCore;
+using MyProfile.Constants;
 using MyProfile.Services;
-using MyProfile.Services.Client.Github;
-using MyProfile.Services.Timed_Worker;
+using MyProfile.Services.Cache;
+using MyProfile.Services.HostExt;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Добавление конф файлов
-builder.Configuration.AddJsonFile($"UserConfiguration.{builder.Environment.EnvironmentName}.json", false, true);
+builder.AddHostOptions();
 
 // Добавление сервисов в контейнер DI
 {
-    builder.Services.AddSwaggerGen(c =>
-    {
-        c.SwaggerDoc("v1", new OpenApiInfo
-        {
-            Title = "<My profile>",
-            Version = "v1",
-            Description = "My profile",
-            Contact = new OpenApiContact
-            {
-                Name = "Repo:",
-                Email = "",
-                Url = new Uri("https://github.com/NoTh0ughts/My-profile"),
-            }
-        });
-    });
-
-  
-    builder.Services.AddDbContext<MyProjectsContext>(optionsBuilder =>
-    {  
-        optionsBuilder.UseMySql(EnvConfiguration.MySqlUrl, 
-            ServerVersion.AutoDetect(EnvConfiguration.MySqlUrl),
-            x => x.MigrationsAssembly("Migrations"));
-    });
-
+     // Регистрируем CacheService в качестве Singleton или Scoped
+    builder.Services.AddSwagger();
+    builder.Services.AddMySqlDb();
     builder.Services.AddLogging();
-    
-    builder.Services.AddControllersWithViews()
-        .AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
-    var productInfoHeaderValue = new ProductInfoHeaderValue("NoThoughtsProfile", "1.0");
-    
-    builder.Services.AddSingleton<IGithubUserClient, GithubUserClient>();
-    builder.Services.AddHttpClient<IGithubUserClient, GithubUserClient>(client =>
-    {
-        client.BaseAddress = new Uri(AppConstants.Client.GithubUserClient);
-        client.DefaultRequestHeaders.UserAgent.Add(productInfoHeaderValue);
-    });
-
+    builder.Services.AddAutoMapper(typeof(Program));
+    builder.Services.AddControllersWithViews().AddJsonOptions(AppConstants.Host.ConfigureJsonOptions);
+    builder.Services.AddExternalHttpClients();
     builder.Services.AddSpaStaticFiles(configuration => {
         configuration.RootPath = "wwwroot";
     });
     
-    builder.Services.AddSingleton<IGithubResourceClient, GithubResourceClient>();
-    builder.Services.AddHttpClient<IGithubResourceClient, GithubResourceClient>(client =>
+    builder.Services.AddGithubUserInfoUpdates();
+    builder.Services.AddScoped<ICacheService, CacheService>();
+    builder.Services.AddStackExchangeRedisCache(ro =>
     {
-        client.BaseAddress = new Uri(AppConstants.Client.GithubResourceClient);
-        client.DefaultRequestHeaders.UserAgent.Add(productInfoHeaderValue);
+        ro.Configuration = EnvConfiguration.RedisConf;
     });
-
-    builder.Services.AddOptions<UserConfiguration>()
-        .Bind(builder.Configuration.GetSection(UserConfiguration.SectionName))
-        .ValidateDataAnnotations();
-    
-    
-    
-    // Добавление Background сервисов
-    {
-        builder.Services.AddHostedService<TimedProjectsUpdaterService>();
-        builder.Services.AddScoped<IScopedProjectUpdaterService, ScopedProjectsUpdaterService>();
-    }
 }
-
 
 var app = builder.Build();
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyProfile v1"));
-    
+    app.UseSwaggerIfDev();
     app.UseStaticFiles(new StaticFileOptions());
     app.UseRouting();
-
-    var context = app.Services.GetRequiredService<MyProjectsContext>();
-    if (context.Database.GetPendingMigrations().Any()) context.Database.Migrate();
+    app.UseMigrations();    
 
     app.MapControllerRoute(
         name: "default",
@@ -104,7 +50,6 @@ var app = builder.Build();
     });
 
     app.UseEndpoints(endpoints => endpoints.MapControllers());
-    
     app.MapFallbackToFile("index.html");;
 
     app.Run();

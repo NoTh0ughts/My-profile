@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Options;
 using MyProfile;
 using MyProfile.Services.Client.Github;
-using Newtonsoft.Json.Linq;
 
 namespace Tests;
 
