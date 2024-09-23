@@ -10,4 +10,5 @@ public class UserConfiguration
 
     [RegularExpression(@"^[a-zA-Z\d](?:[a-zA-Z\d]|-(?=[a-zA-Z\d])){0,38}$")]
     public string GithubUsername { get; set; } = "";
+    public string LeetCodeUsername { get; set; } = "";
 }
