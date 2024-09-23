@@ -13,10 +13,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
-    <RuntimeIdentifier>linux-musl-x64</RuntimeIdentifier>
   </PropertyGroup>
-
+  
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.65" />
     <PackageReference Include="Microsoft.AspNetCore.SpaProxy" Version="8.0.8" />
@@ -25,6 +25,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.8" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.7.3" />
@@ -36,12 +37,12 @@
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
-    <Content Include="ClientApp\src\icons\github-mark-white.png" />
-    <Content Include="ClientApp\src\icons\Icon=Color.png" />
-    <Content Include="ClientApp\src\icons\Logo.png" />
-    <Content Include="ClientApp\src\icons\Logo_old.png" />
+    <Content Include="..\redis.env">
+      <Link>redis.env</Link>
+    </Content>
     <None Remove="$(SpaRoot)**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+    <None Include="../.env" />
     <None Update=".env">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -60,5 +61,10 @@
   
   <ItemGroup>
     <ProjectReference Include="..\Migrations\Migrations.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Projects\Error.cshtml" />
+    <_ContentIncludedByDefault Remove="Projects\_ViewImports.cshtml" />
   </ItemGroup>
 </Project>
