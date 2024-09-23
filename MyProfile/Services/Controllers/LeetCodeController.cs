@@ -14,11 +14,12 @@ public class LeetCodeController : Controller
     {
         _logger = logger;
         _leetCodeClient = leetCodeClient;
+        
     }
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType<LeetCodeUserInfoResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(LeetCodeUserInfoResponse), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(CancellationToken token = default)
     {
         _logger.LogInformation("Start processing GetUserInfo to leetcode");

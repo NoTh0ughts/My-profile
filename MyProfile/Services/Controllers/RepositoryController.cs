@@ -29,7 +29,7 @@ public class RepositoryController : Controller
     
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status418ImATeapot)]
-    [ProducesResponseType<ProjectDTO[]>(StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ProjectDTO[]), StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(CancellationToken token)
     {
         _logger.LogInformation("Context: {Id}", _context.ContextId.InstanceId);
