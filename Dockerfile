@@ -10,7 +10,7 @@ COPY ["./MyProfile/MyProfile.csproj", "MyProfile/"]
 COPY ["./Data/Data.csproj", "Data/"]
 COPY ["./Migrations/Migrations.csproj", "Migrations/"]
 COPY ["./Tests/Tests.csproj", "Tests/"]
-RUN dotnet restore "MyProfile/MyProfile.csproj" -a $TARGETARCH
+RUN dotnet restore "MyProfile/MyProfile.csproj"
 COPY . .
 
 WORKDIR /src
@@ -19,8 +19,8 @@ RUN dotnet build "./MyProfile/MyProfile.csproj" -c Release -o /app/build
 RUN dotnet build "./Tests/Tests.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "./MyProfile/MyProfile.csproj" --no-restore -a $TARGETARCH -c Release -o /app/publish
-RUN dotnet publish "./Tests/Tests.csproj" --no-restore -a $TARGETARCH -c Release -o /app/build 
+RUN dotnet publish "./MyProfile/MyProfile.csproj" --no-restore -c Release -o /app/publish
+RUN dotnet publish "./Tests/Tests.csproj" --no-restore -c Release -o /app/build 
 
 RUN dotnet test "./Tests/Tests.csproj"
 
