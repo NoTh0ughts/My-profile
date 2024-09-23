@@ -16,7 +16,7 @@ export class MySkills extends Component {
             <div>
                 <h1 className="text-white text-center"> Навыки </h1>
                 <div className="d-grid " >
-                    <div className="row justify-content-around flex-wrap">
+                    <div className="row justify-content-around flex-wrap skill-container">
                         <SkillBlock color="#731c91" icon={csharpIcon} title="C#" techs={["ASP .NET", ".NET","WPF","Swagger", "EntityFramework"]}/>
                         <SkillBlock color="#2e95ff" icon={databaseIcon} title="Базы данных" techs={["MySQL", "PostgreSQL", "MariaDB", "MSServer", "MongoDB"]}/>
                         <SkillBlock color="orange" icon={otherIcon} title="Другое" techs={["Git", "Docker","ООП", "SOLID"]}/>

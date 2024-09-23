@@ -29,8 +29,8 @@ export default function App () {
     }, []);
 
     return (
-        <div className="position-relative">
-            <div className="bg-dark justify-content-start p-5 align-items-center position-fixed d-flex"
+        <div className="position-relative bg-dark">
+            <div className="justify-content-start p-5 align-items-center position-fixed d-flex"
                  style={ { height : "100%" , width : "100%" , zIndex : -1 } }>
                 <span className="code-snippet-text" ref={el}/>
             </div>

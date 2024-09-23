@@ -13,12 +13,15 @@
     position: relative;
     overflow: hidden;
     align-items: center;
-    flex-shrink: 0;
     user-select: none;
     border-radius: 50%;
     justify-content: center;
-    margin: 0 auto;
     padding: 25px;
+}
+
+.skill-container {
+   
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .skill-block-icon-root {
