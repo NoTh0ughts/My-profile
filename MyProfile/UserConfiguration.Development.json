@@ -1,6 +1,7 @@
 ﻿{
     "UserConfiguration": {
         "GitHubUsername" : "NoTh0ughts",
-        "UpdatePeriodicity" : "0.0:10:00"
+        "UpdatePeriodicity" : "0.0:10:00",
+        "LeetCodeUsername": "NoThoughts"
     }
 }
