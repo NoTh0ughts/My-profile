@@ -1,9 +1,10 @@
 services:
   nothoughts:
     restart:
-      on-failure:10
+      on-failure:2
     env_file:
       - .env
+      - redis.env
     build:
       context: .
       dockerfile: ./Dockerfile
@@ -11,9 +12,13 @@ services:
       - "20000:20000"
       - "44492:44492"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - subnetwork
+      - myprofile
   db:
     env_file:
       - .env
@@ -22,8 +27,33 @@ services:
     image: mysql
     restart: always
     networks:
-      - subnetwork
+      - myprofile
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 55
+  redis:
+    depends_on: 
+      - db
+    image: redis:alpine
+    env_file:
+      - redis.env
+    networks: 
+      - myprofile
+    healthcheck:
+      test: [ "CMD", "redis-cli", "-a", "$REDIS_PASSWORD", "ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    restart: unless-stopped
+    tty: true
+    stdin_open: true
+
 networks:
+  myprofile:
+    external: false
   subnetwork:
-    external: true  
+    external: false  
     
