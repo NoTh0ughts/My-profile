@@ -11,20 +11,22 @@ export class HomeHeader extends Component {
             <div className="position-static d-inline-block ms-3 glass p-3">
                 <div className="my-name-header fs-1 text-white text-uppercase">Деревянкин Павел</div>
 
-                <a href="https://vk.com/noth0ughts" className="grayscale m-1">
-                    <img src={vklogo} className="icon" alt="VK"/>
-                </a>
-                <a className="grayscale m-1" href="https://t.me/NoThoughts_zip">
-                    <img src={tglogo} className="icon" alt="TG"/>
-                </a>
+                <div className="gap-2 d-flex">
+                    <a href="https://vk.com/noth0ughts" className="grayscale">
+                        <img src={vklogo} className="icon" alt="VK"/>
+                    </a>
+                    <a className="grayscale" href="https://t.me/NoThoughts_zip">
+                        <img src={tglogo} className="icon" alt="TG"/>
+                    </a>
 
-                <a className="grayscale m-1" href="https://github.com/NoTh0ughts">
-                    <img src={gitlogo} className="icon" alt="GIT"/>
-                </a>
+                    <a className="grayscale" href="https://github.com/NoTh0ughts">
+                        <img src={gitlogo} className="icon" alt="GIT"/>
+                    </a>
 
-                <a className="grayscale m-1" href="https://volgograd.hh.ru/resume/d2230aa3ff0858a1bb0039ed1f4642504c6f31">
-                    <img src="https://i.hh.ru/logos/svg/hh.ru__min_.svg?v=11032019" className="icon" alt="headhunter"/>
-                </a>
+                    <a className="grayscale" href="https://volgograd.hh.ru/resume/d2230aa3ff0858a1bb0039ed1f4642504c6f31">
+                        <img src="https://i.hh.ru/logos/svg/hh.ru__min_.svg?v=11032019" className="icon" alt="headhunter"/>
+                    </a>
+                </div>
             </div>);
     }
 }

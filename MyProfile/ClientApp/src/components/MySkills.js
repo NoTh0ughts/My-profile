@@ -31,10 +31,10 @@ export class MySkills extends Component {
                                 icon={eduInProgressIcon} title="Изучаю" 
                                 techs={["JavaScript","React", "Go", "Apache Kafka"]}/>
                     </div>
-                </div>                
+                </div>           
                 
-                <h1 className="text-white text-center m-4">Статистика LeetCode</h1>
-                <LeetCodeBadge/>
+                {/*<h1 className="text-white text-center m-4">Статистика LeetCode</h1>
+                <LeetCodeBadge/>*/}
                 
                 <h1 className="text-white text-center m-4"> Языки </h1>
                 <div className="justify-content-center align-content-center d-flex">
