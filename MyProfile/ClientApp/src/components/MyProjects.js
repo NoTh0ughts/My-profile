@@ -19,7 +19,7 @@ export class MyProjects extends Component {
     }
     
     async refresh() {
-        const response = await fetch('api/repository');
+        const response = await fetch('/repository');
         const data = await response.json();
         this.setState({ repos: data, loading: false });
     }
