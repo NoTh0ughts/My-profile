@@ -10,8 +10,9 @@ export class NavMenu extends Component {
     render () {
         return (
             <Navbar className="d-inline-block text-nowrap">
-                <HomeHeader/>
+               
                 <Nav navbar className="flex-column text-uppercase fs-1">
+                    <HomeHeader/>
                     <NavItem>
                         <NavLink tag={ Link } className="navigation-button" to="/">Профиль</NavLink>
                     </NavItem >

@@ -21,13 +21,13 @@ export class DottedProgressBar extends Component {
         }
         
         return (
-            <div className="d-flex dot-bar flex-wrap justify-content-between mb-4">
-                <div className="d-block">
+            <div className="dot-root">
+                <div className="d-block flex-nowrap text-nowrap">
                     <span className="text-white text-start text-uppercase">{this.title}</span>
                     <br/>
                     <span className="text-white opacity-75 text-start">{this.subtitle}</span>    
                 </div>
-                <div className="d-inline-block ms-5 align-middle">
+                <div className="d-flex flex-row ms-3 align-middle">
                     {list}
                 </div>
             </div>

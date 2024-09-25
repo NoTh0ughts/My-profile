@@ -2,7 +2,8 @@
     background-color: #323232;
     height: 2rem;
     width: 2rem;
-    display: inline-block;
+    display: flex;
+    
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
@@ -14,12 +15,15 @@
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }
 
-.dot-bar {
+.dot-root {
     display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
 }
 
-@media only (width: 690px) {
-    .dot-bar {
-        display: block;
+@media  (max-width: 690px) {
+    .dot-root {
+        display: flex;
+        flex-wrap: wrap;
     }
 }

@@ -19,15 +19,15 @@ export class SkillBlock extends Component {
         }
         
         return (
-            <div className="skill-block text-white glass mb-3 me-1">
-                <div className="skill-block-icon-root ">
+            <div className="skill-block text-white glass">
+                <div className="skill-block-icon-root">
                     {this.icon}
                 </div>
+                <span className="" style={{fontSize:22, color:this.color}}>{this.title}</span>
                 
-                <h3 style={{color:this.color}}>{this.title}</h3>
-                {
-                    list
-                }
+                    {
+                        list
+                    }
             </div>
         );
     }

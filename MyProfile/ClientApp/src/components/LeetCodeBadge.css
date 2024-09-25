@@ -1,0 +1,17 @@
+.badge-root {
+    text-align: center;
+    
+}
+
+.badge-stats-root {
+    display: grid;
+    align-items: end;
+    align-content: end;
+    justify-content: end;
+    gap: .5rem;
+}
+
+.badge-stats-item {
+    color: white;
+    
+}

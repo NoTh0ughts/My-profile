@@ -7,18 +7,21 @@
 }
 
 .skill-block-icon {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
+    padding: 15px;
     display: flex;
     position: relative;
     overflow: hidden;
     align-items: center;
-    flex-shrink: 0;
     user-select: none;
     border-radius: 50%;
     justify-content: center;
-    margin: 0 auto;
-    padding: 25px;
+}
+
+.skill-container {
+   
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .skill-block-icon-root {
@@ -35,7 +38,7 @@
 
 .skill-block {
     display: block;
-    padding: 15px;
+    padding: 5px;
     text-align: center;
     overflow: hidden;
     width: 22%;
@@ -45,7 +48,7 @@
 
 @media only screen and (max-width: 1000px) {
     .skill-block {
-        width: 40%;
+        width: 43%;
         -ms-flex-pack: distribute;
         justify-content: space-around
     }
