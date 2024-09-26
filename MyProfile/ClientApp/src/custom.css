@@ -6,7 +6,6 @@
 
 :root {
     --relSize: calc(1vw + 1vh);
-    padding: 5px;
 }
 
 .code-snippet {
