@@ -8,7 +8,7 @@ import gitlogo from "../icons/git_logo.png"
 export class HomeHeader extends Component {
     render() {
         return (
-            <div className="position-static d-inline-block ms-3 glass p-3">
+            <div className="d-inline-block glass p-3">
                 <div className="my-name-header fs-1 text-white text-uppercase">Деревянкин Павел</div>
 
                 <div className="gap-2 d-flex">

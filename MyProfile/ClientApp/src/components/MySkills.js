@@ -36,7 +36,7 @@ export class MySkills extends Component {
                 {/*<h1 className="text-white text-center m-4">Статистика LeetCode</h1>
                 <LeetCodeBadge/>*/}
                 
-                <h1 className="text-white text-center m-4"> Языки </h1>
+                <h1 className="text-white text-center "> Языки </h1>
                 <div className="justify-content-center align-content-center d-flex">
                     <div className="d-grid glass gap-3 p-3" style={{gridTemplateColumns: "min-content"}}>
                         <DottedProgressBar title="Английский" subtitle="Technical" value={6}/>

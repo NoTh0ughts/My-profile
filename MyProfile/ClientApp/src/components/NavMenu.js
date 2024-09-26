@@ -11,7 +11,7 @@ export class NavMenu extends Component {
         return (
             <Navbar className="d-inline-block text-nowrap">
                
-                <Nav navbar className="flex-column text-uppercase fs-1">
+                <Nav navbar className="flex-column navbar-container text-uppercase fs-1">
                     <HomeHeader/>
                     <NavItem>
                         <NavLink tag={ Link } className="navigation-button" to="/">Профиль</NavLink>

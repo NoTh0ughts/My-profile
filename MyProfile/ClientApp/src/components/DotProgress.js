@@ -11,7 +11,7 @@ export class DotProgress extends Component {
     
     render() {
         return (
-            <div className={`rounded-circle m-1 ${this.isActive ? "dot-progress-active" : "dot-progress"}`}>
+            <div className={`rounded-circle ${this.isActive ? "dot-progress-active" : "dot-progress"}`}>
                 
             </div>
         );

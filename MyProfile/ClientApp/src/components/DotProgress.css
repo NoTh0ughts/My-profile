@@ -1,7 +1,7 @@
 ﻿.dot-progress {
     background-color: #323232;
-    height: 2rem;
-    width: 2rem;
+    height: 25px;
+    width: 25px;
     display: flex;
     
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
@@ -9,8 +9,8 @@
 
 .dot-progress-active {
     background-color: orange;
-    height: 2rem;
-    width: 2rem;
+    height: 25px;
+    width: 25px;
     display: inline-block;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
 }

@@ -27,7 +27,7 @@ export class DottedProgressBar extends Component {
                     <br/>
                     <span className="text-white opacity-75 text-start">{this.subtitle}</span>    
                 </div>
-                <div className="d-flex flex-row ms-3 align-middle">
+                <div className="d-flex flex-row ms-3 gap-1 align-middle">
                     {list}
                 </div>
             </div>
