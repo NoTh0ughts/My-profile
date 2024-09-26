@@ -37,7 +37,7 @@ public class RepositoryController : Controller
         {
             // Попытка получить данные из кэша
             var cachedProjects = await _cacheService.GetCachedDataAsync<IEnumerable<ProjectDTO>>("projects");
-            if (cachedProjects != null)
+            if (cachedProjects != default)
             {
                 _logger.LogInformation("Retrived projects data from cache");
                 return Ok(cachedProjects);
